@@ -33,3 +33,6 @@ RUN mv /tmp/bickham/*.vf /usr/share/texmf/fonts/vf/adobe/bickham/
 
 RUN texhash
 RUN updmap-sys --force --enable Map=bickham.map
+
+RUN rm -rf /tmp/*
+RUN pacman -R unzip
