@@ -35,4 +35,4 @@ RUN texhash
 RUN updmap-sys --force --enable Map=bickham.map
 
 RUN rm -rf /tmp/*
-RUN pacman -R unzip
+RUN pacman --noconfirm -R unzip
