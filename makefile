@@ -16,6 +16,8 @@ install:
 	cp pandoc-make /usr/local/bin/pandoc-make
 	ln -s /usr/local/bin/pandoc-make /usr/local/bin/pdmake
 	cp makefile /usr/local/etc/pandoc-bickham-makefile
+	chmod +x /usr/local/bin/pandoc-make
+	chmod +x /usr/local/bin/pdmake
 
 uninstall:
 	$(RM) /usr/local/bin/pandoc-make
