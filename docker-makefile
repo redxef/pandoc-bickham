@@ -1,0 +1,51 @@
+PANDOC              :=pandoc
+LATEX               :=pdflatex
+PANDOC_OPTIONS      :=--standalone --mathml -f markdown+escaped_line_breaks --resource-path=.
+LATEX_OPTIONS       :=
+
+PANDOC_HTML_OPTIONS :=--to html5
+PANDOC_PDF_OPTIONS  :=
+PANDOC_DOCX_OPTIONS :=
+PANDOC_RTF_OPTIONS  :=
+PANDOC_ODT_OPTIONS  :=
+PANDOC_EPUB_OPTIONS :=--to epub3
+LATEX_PDF_OPTIONS   :=
+
+SOURCE_MD := $(wildcard *.md)
+SOURCE_TEX := $(wildcard *.tex)
+
+OUTPUTS :=\
+ $(SOURCE_MD:.md=.html) \
+ $(SOURCE_MD:.md=.pdf) \
+ $(SOURCE_TEX:.tex=.pdf) \
+
+all : $(OUTPUTS)
+
+clean:
+	$(RM) $(OUTPUTS)
+
+%.html : %.md
+	$(PANDOC) $(PANDOC_OPTIONS) $(PANDOC_HTML_OPTIONS) -o $@ $<
+
+%.pdf : %.md
+	$(PANDOC) $(PANDOC_OPTIONS) $(PANDOC_PDF_OPTIONS) -o $@ $<
+
+%.docx : %.md
+	$(PANDOC) $(PANDOC_OPTIONS) $(PANDOC_DOCX_OPTIONS) -o $@ $<
+
+%.rtf : %.md
+	$(PANDOC) $(PANDOC_OPTIONS) $(PANDOC_RTF_OPTIONS) -o $@ $<
+
+%.odt : %.md
+	$(PANDOC) $(PANDOC_OPTIONS) $(PANDOC_ODT_OPTIONS) -o $@ $<
+
+%.epub : %.md
+	$(PANDOC) $(PANDOC_OPTIONS) $(PANDOC_EPUB_OPTIONS) -o $@ $<
+
+%.html: %.tex
+	$(PANDOC) $(PANDOC_OPTIONS) $(PANDOC_HTML_OPTIONS) -o $@ $<
+
+%.pdf: %.tex
+	$(LATEX) $(LATEX_OPTIONS) $(LATEX_PDF_OPTIONS) $<
+
+.PHONY: all clean
