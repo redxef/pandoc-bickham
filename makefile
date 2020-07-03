@@ -2,10 +2,10 @@ SOURCE_DOCS_MD := $(wildcard *.md)
 SOURCE_DOCS_TEX := $(wildcard *.tex)
 
 all: $(SOURCE_DOCS_TEX) $(SOURCE_DOCS_MD)
-	docker run -it --mount src=$(shell pwd),target=/mnt,type=bind --user 1000:998 pandoc-bickham /bin/sh -c 'cd /mnt && make --file /docker-makefile'
+	docker run -it --mount src=$(shell pwd),target=/mnt,type=bind pandoc-bickham /bin/sh -c 'cd /mnt && make --file /docker-makefile'
 
 clean:
-	docker run -it --mount src=$(shell pwd),target=/mnt,type=bind --user 1000:998 pandoc-bickham /bin/sh -c 'cd /mnt && make --file /docker-makefile clean'
+	docker run -it --mount src=$(shell pwd),target=/mnt,type=bind pandoc-bickham /bin/sh -c 'cd /mnt && make --file /docker-makefile clean'
 
 image: Dockerfile
 	docker build --tag 'pandoc-bickham:latest' .
