@@ -10,7 +10,7 @@ clean:
 image: Dockerfile
 	docker build --tag 'pandoc-bickham:latest' .
 
-install:
+install: image
 	mkdir -p /usr/local/bin
 	mkdir -p /usr/local/etc
 	cp pandoc-make /usr/local/bin/pandoc-make
