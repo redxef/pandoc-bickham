@@ -13,7 +13,7 @@ This also provides a simple command which makes building your `.tex` or `.md` fi
 ## Try it
 
 ```bash
-make build-image # generate the docker image and tag it: pandoc-bickham:latest
+make image # generate the docker image and tag it: pandoc-bickham:latest
 make # build this readme
 ```
 
@@ -22,7 +22,7 @@ make # build this readme
 Just build the image and install it:
 
 ```bash
-make build-image
+make image
 sudo make install
 ```
 
