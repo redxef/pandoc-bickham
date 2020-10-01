@@ -1,7 +1,7 @@
 FROM archlinux/base:latest
 
 RUN pacman --noconfirm -Syu make grep unzip curl
-RUN pacman --noconfirm -S texlive-bin texlive-core pandoc tidy
+RUN pacman --noconfirm -S texlive-bin texlive-most pandoc tidy
 
 RUN curl -o /tmp/BickhamScriptPro-Bold.otf 'https://www.wfonts.com/download/data/2014/12/29/bickham-script-pro/BickhamScriptPro-Bold.otf'
 RUN curl -o /tmp/BickhamScriptPro-Regular.otf 'https://www.wfonts.com/download/data/2014/12/29/bickham-script-pro/BickhamScriptPro-Regular.otf'
