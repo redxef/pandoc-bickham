@@ -22,6 +22,9 @@ RUN texhash
 RUN updmap-sys --force --enable Map=bickham.map
 
 COPY docker-makefile /docker-makefile
+COPY docker-entrypoint.sh /usr/bin/
 
 RUN rm -rf /tmp/*
 RUN pacman --noconfirm -R unzip
+
+ENTRYPOINT [ "docker-entrypoint.sh" ]
