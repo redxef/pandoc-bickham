@@ -7,6 +7,7 @@ RUN curl -o /tmp/BickhamScriptPro-Bold.otf 'https://www.wfonts.com/download/data
 RUN curl -o /tmp/BickhamScriptPro-Regular.otf 'https://www.wfonts.com/download/data/2014/12/29/bickham-script-pro/BickhamScriptPro-Regular.otf'
 RUN curl -o /tmp/BickhamScriptPro-Semibold.otf 'https://www.wfonts.com/download/data/2014/12/29/bickham-script-pro/BickhamScriptPro-Semibold.otf'
 RUN curl -L -o /tmp/bickham.tds.zip http://mirrors.ctan.org/install/fonts/bickham.tds.zip
+RUN curl -L -o /tmp/pgfplots.tds.zip https://deac-ams.dl.sourceforge.net/project/pgfplots/pgfplots/1.16/pgfplots_1.16.tds.zip
 
 RUN cfftot1 /tmp/BickhamScriptPro-Bold.otf -o /tmp/BickhamScriptPro-Bold.pfb
 RUN cfftot1 /tmp/BickhamScriptPro-Regular.otf -o /tmp/BickhamScriptPro-Regular.pfb
@@ -15,7 +16,9 @@ RUN cfftot1 /tmp/BickhamScriptPro-Semibold.otf -o /tmp/BickhamScriptPro-Semibold
 RUN mkdir -p /usr/share/texmf/
 RUN mkdir -p /usr/share/texmf/fonts/type1/adobe/bickham/
 RUN unzip /tmp/bickham.tds.zip -d /usr/share/texmf
+RUN unzip /tmp/pgfplots.tds.zip -d /usr/share/texmf
 RUN rm /tmp/bickham.tds.zip
+RUN rm /tmp/pgfplots.tds.zip
 RUN mv /tmp/*.pfb /usr/share/texmf/fonts/type1/adobe/bickham/
 
 RUN texhash

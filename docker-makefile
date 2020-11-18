@@ -19,11 +19,11 @@ OUTPUTS :=\
  $(SOURCE_MD:.md=.pdf) \
  $(SOURCE_TEX:.tex=.pdf) \
 
+all : $(OUTPUTS)
+
 html: $(SOURCE_MD:.md=.html)
 
 pdf: $(SOURCE_MD:.md=.pdf) $(SOURCE_TEX:.tex=.pdf)
-
-all : $(OUTPUTS)
 
 clean:
 	$(RM) $(OUTPUTS)
