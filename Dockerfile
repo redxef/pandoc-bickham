@@ -1,33 +1,43 @@
-FROM archlinux/base:latest
+# FROM archlinux/base:latest
+FROM alpine:latest as builder
 
-RUN pacman --noconfirm -Syu make grep unzip curl
-RUN pacman --noconfirm -S texlive-bin texlive-most pandoc tidy
+RUN apk update && apt upgrade
+RUN apk add build-base ghc
 
-RUN curl -o /tmp/BickhamScriptPro-Bold.otf 'https://www.wfonts.com/download/data/2014/12/29/bickham-script-pro/BickhamScriptPro-Bold.otf'
-RUN curl -o /tmp/BickhamScriptPro-Regular.otf 'https://www.wfonts.com/download/data/2014/12/29/bickham-script-pro/BickhamScriptPro-Regular.otf'
-RUN curl -o /tmp/BickhamScriptPro-Semibold.otf 'https://www.wfonts.com/download/data/2014/12/29/bickham-script-pro/BickhamScriptPro-Semibold.otf'
-RUN curl -L -o /tmp/bickham.tds.zip http://mirrors.ctan.org/install/fonts/bickham.tds.zip
-RUN curl -L -o /tmp/pgfplots.tds.zip https://deac-ams.dl.sourceforge.net/project/pgfplots/pgfplots/1.16/pgfplots_1.16.tds.zip
+FROM alpine:latest
 
-RUN cfftot1 /tmp/BickhamScriptPro-Bold.otf -o /tmp/BickhamScriptPro-Bold.pfb
-RUN cfftot1 /tmp/BickhamScriptPro-Regular.otf -o /tmp/BickhamScriptPro-Regular.pfb
-RUN cfftot1 /tmp/BickhamScriptPro-Semibold.otf -o /tmp/BickhamScriptPro-Semibold.pfb
+RUN apk update && apk upgrade
+RUN apk add make grep unzip curl
+RUN apk add texlive-full pandoc tidyhtml
 
-RUN mkdir -p /usr/share/texmf/
-RUN mkdir -p /usr/share/texmf/fonts/type1/adobe/bickham/
-RUN unzip /tmp/bickham.tds.zip -d /usr/share/texmf
-RUN unzip /tmp/pgfplots.tds.zip -d /usr/share/texmf
-RUN rm /tmp/bickham.tds.zip
-RUN rm /tmp/pgfplots.tds.zip
-RUN mv /tmp/*.pfb /usr/share/texmf/fonts/type1/adobe/bickham/
+# RUN pacman --noconfirm -Syu make grep unzip curl
+# RUN pacman --noconfirm -S texlive-bin texlive-most pandoc tidy
 
-RUN texhash
-RUN updmap-sys --force --enable Map=bickham.map
+# RUN curl -o /tmp/BickhamScriptPro-Bold.otf 'https://www.wfonts.com/download/data/2014/12/29/bickham-script-pro/BickhamScriptPro-Bold.otf'
+# RUN curl -o /tmp/BickhamScriptPro-Regular.otf 'https://www.wfonts.com/download/data/2014/12/29/bickham-script-pro/BickhamScriptPro-Regular.otf'
+# RUN curl -o /tmp/BickhamScriptPro-Semibold.otf 'https://www.wfonts.com/download/data/2014/12/29/bickham-script-pro/BickhamScriptPro-Semibold.otf'
+# RUN curl -L -o /tmp/bickham.tds.zip http://mirrors.ctan.org/install/fonts/bickham.tds.zip
+# RUN curl -L -o /tmp/pgfplots.tds.zip https://deac-ams.dl.sourceforge.net/project/pgfplots/pgfplots/1.16/pgfplots_1.16.tds.zip
 
-COPY docker-makefile /docker-makefile
-COPY docker-entrypoint.sh /usr/bin/
+# RUN cfftot1 /tmp/BickhamScriptPro-Bold.otf -o /tmp/BickhamScriptPro-Bold.pfb
+# RUN cfftot1 /tmp/BickhamScriptPro-Regular.otf -o /tmp/BickhamScriptPro-Regular.pfb
+# RUN cfftot1 /tmp/BickhamScriptPro-Semibold.otf -o /tmp/BickhamScriptPro-Semibold.pfb
 
-RUN rm -rf /tmp/*
-RUN pacman --noconfirm -R unzip
+# RUN mkdir -p /usr/share/texmf/
+# RUN mkdir -p /usr/share/texmf/fonts/type1/adobe/bickham/
+# RUN unzip /tmp/bickham.tds.zip -d /usr/share/texmf
+# RUN unzip /tmp/pgfplots.tds.zip -d /usr/share/texmf
+# RUN rm /tmp/bickham.tds.zip
+# RUN rm /tmp/pgfplots.tds.zip
+# RUN mv /tmp/*.pfb /usr/share/texmf/fonts/type1/adobe/bickham/
 
-ENTRYPOINT [ "docker-entrypoint.sh" ]
+# RUN texhash
+# RUN updmap-sys --force --enable Map=bickham.map
+
+# COPY docker-makefile /docker-makefile
+# COPY docker-entrypoint.sh /usr/bin/
+
+# RUN rm -rf /tmp/*
+# RUN pacman --noconfirm -R unzip
+
+# ENTRYPOINT [ "docker-entrypoint.sh" ]
